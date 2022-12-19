@@ -2,37 +2,35 @@ Role Name
 =========
 kvm_provision
 
-
 Requirements
 ------------
-Source of code:
+A link to a source of the code:
 ## https://www.redhat.com/sysadmin/build-lab-quickly
 ## https://www.redhat.com/sysadmin/build-VM-fast-ansible
 
-ansible-galaxy collection install community.libvirt
-
-
 Role Variables
 --------------
-key "--selinux-relabel" is required only for Red Hat-based images or other images that have SELinux enabled
-
+key "--selinux-relabel" is required only for Red Hat-based images or other images that have SELinux enabled, for this purpose "selinux" boolean variable is used
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+libvirt
+qemu-utils (qemu-img)
+ansible-galaxy collection install community.libvirt
 
 Example Playbook
 ----------------
-
 ansible-playbook -K kvm_provision.yaml # -K to initiate a sudo password request
+two samples .yaml are applied:
+ 1. fedora 37 
+ 2. ubuntu 22.04 (jammy)
+
+ Use **virsh domifaddr <VM name>** to display IP address of VM
 
 License
 -------
-
 BSD
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+matrena.ca

@@ -4,17 +4,18 @@
   become: yes
   vars:
     pool_dir: "/mnt/ext4/images"
-    vm: f37-lab01-1
+    vm: u22
     vcpus: 4
     ram_mb: 8192
     net: default
     cleanup: no
     ssh_key: /home/ubuntu/.ssh/id_rsa.pub
-    image_name: Fedora-Cloud-Base-37-1.7.x86_64.qcow2
-    image_url: https://download.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/x86_64/images/{{ base_image_name }}
-    image_sha: b5b9bec91eee65489a5745f6ee620573b23337cbb1eb4501ce200b157a01f3a0
-    root_pass: fedora123
+    image_name: jammy-server-cloudimg-amd64.img
+    image_url: https://cloud-images.ubuntu.com/jammy/current/{{ base_image_name }}
+    image_sha: 8ae2ebcaf1320ea5b8d7003b44f2dbcb4ecad8cc53a3170e96d9ff1bbe8f78b8
+    root_pass: ubuntu
     resize: 1
+    selinux: no
 
   tasks:
     - name: KVM Provision role
@@ -29,7 +30,9 @@
         cleanup_tmp: "{{ cleanup }}"
         ssh_pub_key: "{{ ssh_key }}"
         base_image_name: "{{ image_name }}"
+        base_image_url: "{{ image_url }}"
         base_image_sha: "{{ image_sha }}"
         vm_root_pass: "{{ root_pass }}"
         vm_resize: "{{ resize }}"
+        vm_selinux: "{{ selinux }}"
 
