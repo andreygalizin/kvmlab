@@ -1,0 +1,35 @@
+- name: Deploys VM based on cloud image
+  hosts: localhost
+  gather_facts: yes
+  become: yes
+  vars:
+    pool_dir: "/mnt/ext4/images"
+    vm: f37-lab01-1
+    vcpus: 4
+    ram_mb: 8192
+    net: default
+    cleanup: no
+    ssh_key: /home/ubuntu/.ssh/id_rsa.pub
+    image_name: Fedora-Cloud-Base-37-1.7.x86_64.qcow2
+    image_url: https://download.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/x86_64/images/{{ base_image_name }}
+    image_sha: b5b9bec91eee65489a5745f6ee620573b23337cbb1eb4501ce200b157a01f3a0
+    root_pass: fedora123
+    resize: 1
+
+  tasks:
+    - name: KVM Provision role
+      include_role:
+        name: kvm_provision
+      vars:
+        libvirt_pool_dir: "{{ pool_dir }}"
+        vm_name: "{{ vm }}"
+        vm_vcpus: "{{ vcpus }}"
+        vm_ram_mb: "{{ ram_mb }}"
+        vm_net: "{{ net }}"
+        cleanup_tmp: "{{ cleanup }}"
+        ssh_pub_key: "{{ ssh_key }}"
+        base_image_name: "{{ image_name }}"
+        base_image_sha: "{{ image_sha }}"
+        vm_root_pass: "{{ root_pass }}"
+        vm_resize: "{{ resize }}"
+
